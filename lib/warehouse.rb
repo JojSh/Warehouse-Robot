@@ -3,42 +3,49 @@ class Warehouse
   attr_reader :grid
 
   def initialize
-    @grid = [[0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0,0,0]]
-    end
+    @grid  = [[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],  # Y
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]]
+    end                       # X
 
 
     def place_robot(x, y)
-      @grid[x][y] = 1
+      @grid[x][y] = 'R'
     end
 
     def move_robot(direction)
-      x = locate_robot[0]
-      y = locate_robot[1]
-      row = @grid[x]
+
+      x = locate_robot.first
+      y = locate_robot.last
+
+      horizontally  = @grid[x]
+      # vertically    = @grid[y]
+
       if direction == "W"
-        row.insert(y-1, row.delete_at(y))
+        horizontally.insert(y-1, horizontally.delete_at(y))
+      elsif direction == "N"
+        horizontally.map! { |square| square = nil if square == "R" }
+        place_robot(x-1, y)
+      elsif direction == "S"
+        horizontally.map! { |square| square = nil if square == "R" }
+        place_robot(x+1, y)
       else
-        row.insert(y+1, row.delete_at(y))
+        horizontally.insert(y+1, horizontally.delete_at(y))
       end
     end
 
     def locate_robot
       co_ords = []
-      @grid.each_with_index do | row , index |
-        if row.include?(1)
-          co_ords = [index, row.index(1)]
-        end
+      @grid.each_with_index do |row, index|
+        co_ords = [index, row.index('R')] if row.include?('R')
       end
       return co_ords
     end
-
 end

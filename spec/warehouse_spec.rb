@@ -1,4 +1,5 @@
 require 'warehouse'
+require 'pry'
 
 describe Warehouse do
 
@@ -12,12 +13,12 @@ describe Warehouse do
   describe 'place robot' do
      it 'places robot in top left corner when given co-ords 0x0' do
        warehouse.place_robot(0,0)
-       expect(warehouse.grid[0][0]).to eq(1)
+       expect(warehouse.grid[0][0]).to eq('R')
      end
 
      it 'places robot in bottom right corner when coven coords 9x9' do
        warehouse.place_robot(9,9)
-       expect(warehouse.grid[9][9]).to eq(1)
+       expect(warehouse.grid[9][9]).to eq('R')
      end
   end
 
@@ -30,25 +31,43 @@ describe Warehouse do
 
   describe 'move robot' do
     it 'moves the robot one square right when given direction E' do
-      warehouse.place_robot(9,0)
+      warehouse.place_robot(0,4)
       warehouse.move_robot('E')
-      expect(warehouse.grid[9][1]).to eq(1)
-      expect(warehouse.grid[9][0]).to eq(0)
+      expect(warehouse.grid[0][5]).to eq('R')
+      expect(warehouse.grid[0][4]).to eq(nil)
     end
 
     it 'moves the robot one square left when given direction W' do
-      warehouse.place_robot(0,9)
+      warehouse.place_robot(0,4)
       warehouse.move_robot('W')
-      expect(warehouse.grid[0][9]).to eq(0)
-      expect(warehouse.grid[0][8]).to eq(1)
+      # binding.pry
+      expect(warehouse.grid[0][3]).to eq('R')
+      expect(warehouse.grid[0][4]).to eq(nil)
     end
 
     it 'moves the robot one square up when given direction N' do
-      warehouse.place_robot(1,9)
+      warehouse.place_robot(4,0)
       warehouse.move_robot('N')
-      expect(warehouse.grid[1][9]).to eq(0)
-      expect(warehouse.grid[0][9]).to eq(1)
+      expect(warehouse.grid[3][0]).to eq('R')
+      expect(warehouse.grid[4][0]).to eq(nil)
     end
+
+    it 'moves the robot one square down when given direction S' do
+      warehouse.place_robot(4,0)
+      warehouse.move_robot('S')
+      expect(warehouse.grid[5][0]).to eq('R')
+      expect(warehouse.grid[4][0]).to eq(nil)
+    end
+
+    it 'in a circle (N, E, S then W) to return to its starting position' do
+      warehouse.place_robot(4,4)
+      warehouse.move_robot('N')
+      warehouse.move_robot('E')
+      warehouse.move_robot('S')
+      warehouse.move_robot('W')
+      expect(warehouse.grid[4][4]).to eq('R')
+    end
+
   end
 
 end
