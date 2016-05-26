@@ -40,7 +40,6 @@ describe Warehouse do
     it 'moves the robot one square left when given direction W' do
       warehouse.place_robot(0,4)
       warehouse.move_robot('W')
-      # binding.pry
       expect(warehouse.grid[0][3]).to eq('R')
       expect(warehouse.grid[0][4]).to eq(nil)
     end
@@ -59,15 +58,13 @@ describe Warehouse do
       expect(warehouse.grid[4][0]).to eq(nil)
     end
 
-    it 'in a circle (N, E, S then W) to return to its starting position' do
-      warehouse.place_robot(4,4)
-      warehouse.move_robot('N')
-      warehouse.move_robot('E')
-      warehouse.move_robot('S')
-      warehouse.move_robot('W')
-      expect(warehouse.grid[4][4]).to eq('R')
+    describe 'program_sequence' do
+      it 'gives robot series of commands to reach center of grid from SW corner' do
+        warehouse.place_robot(9,0)
+        warehouse.program_sequence("N E N E N E N E")
+        expect(warehouse.grid[5][4]).to eq('R')
+      end
     end
-
   end
 
 end

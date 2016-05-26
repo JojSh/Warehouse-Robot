@@ -6,14 +6,14 @@ class Warehouse
     @grid  = [[nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
               [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
               [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
-              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],  # Y
+              [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
               [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
               [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
               [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
               [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
               [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil],
               [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]]
-    end                       # X
+    end
 
 
     def place_robot(x, y)
@@ -21,12 +21,9 @@ class Warehouse
     end
 
     def move_robot(direction)
-
       x = locate_robot.first
       y = locate_robot.last
-
       horizontally  = @grid[x]
-      # vertically    = @grid[y]
 
       if direction == "W"
         horizontally.insert(y-1, horizontally.delete_at(y))
