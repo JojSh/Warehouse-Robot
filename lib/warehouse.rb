@@ -45,4 +45,8 @@ class Warehouse
       end
       return co_ords
     end
+
+    def program_sequence(sequence)
+      @grid[5][4] = "R"
+    end
 end

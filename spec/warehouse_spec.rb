@@ -64,6 +64,12 @@ describe Warehouse do
         warehouse.program_sequence("N E N E N E N E")
         expect(warehouse.grid[5][4]).to eq('R')
       end
+
+      it 'gives robot series of commands to reach center of grid from NE corner' do
+        warehouse.place_robot(9,0)
+        warehouse.program_sequence("S W S W S W S W")
+        expect(warehouse.grid[4][5]).to eq('R')
+      end
     end
   end
 
