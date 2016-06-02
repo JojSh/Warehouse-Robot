@@ -47,6 +47,9 @@ class Warehouse
     end
 
     def program_sequence(sequence)
-      @grid[5][4] = "R"
+      split = sequence.split(" ")
+      split.each do | direction |
+        move_robot(direction)
+      end
     end
 end

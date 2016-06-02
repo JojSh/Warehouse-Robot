@@ -58,18 +58,30 @@ describe Warehouse do
       expect(warehouse.grid[4][0]).to eq(nil)
     end
 
-    describe 'program_sequence' do
-      it 'gives robot series of commands to reach center of grid from SW corner' do
-        warehouse.place_robot(9,0)
-        warehouse.program_sequence("N E N E N E N E")
-        expect(warehouse.grid[5][4]).to eq('R')
-      end
+    it 'moves the robot one square down when given direction S' do
+      warehouse.place_robot(9,0)
+      warehouse.move_robot('W')
+      expect(warehouse.grid[9][0]).to eq('R')
+    end
+  end
 
-      it 'gives robot series of commands to reach center of grid from NE corner' do
-        warehouse.place_robot(9,0)
-        warehouse.program_sequence("S W S W S W S W")
-        expect(warehouse.grid[4][5]).to eq('R')
-      end
+  describe 'program_sequence' do
+    it 'gives the robot commands to move in a complete circle' do
+      warehouse.place_robot(9,0)
+      warehouse.program_sequence("N E S W")
+      expect(warehouse.grid[9][0]).to eq('R')
+    end
+
+    it 'gives robot series of commands to reach center of grid from SW corner' do
+      warehouse.place_robot(9,0)
+      warehouse.program_sequence("N E N E N E N E")
+      expect(warehouse.grid[5][4]).to eq('R')
+    end
+
+    it 'gives robot series of commands to reach center of grid from NE corner' do
+      warehouse.place_robot(0,9)
+      warehouse.program_sequence("S W S W S W S W")
+      expect(warehouse.grid[4][5]).to eq('R')
     end
   end
 
