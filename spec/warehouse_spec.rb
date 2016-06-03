@@ -63,6 +63,14 @@ describe Warehouse do
       warehouse.move_robot('W')
       expect(warehouse.grid[9][0]).to eq('R')
     end
+
+    it 'robot remains in place if instructed to move through a corner' do
+      warehouse.place_robot(9,0)
+      warehouse.move_robot('S')
+      expect(warehouse.grid[9][0]).to eq('R')
+    end
+
+
   end
 
   describe 'program_sequence' do
