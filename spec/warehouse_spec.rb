@@ -60,9 +60,7 @@ describe Warehouse do
 
     it 'robot cannot move through walls' do
       warehouse.place_robot(9,0)
-      binding.pry
       warehouse.move_robot('W')
-      binding.pry
       expect(warehouse.grid[9][0]).to eq('R')
     end
   end
@@ -84,6 +82,19 @@ describe Warehouse do
       warehouse.place_robot(0,9)
       warehouse.program_sequence("S W S W S W S W")
       expect(warehouse.grid[4][5]).to eq('R')
+    end
+  end
+
+  describe "#at_wall?" do
+    it 'returns false if not touching a wall' do
+      warehouse.place_robot(5,5)
+      expect(warehouse.at_wall?).to eq false
+      # expect(warehouse.locate_robot).not_to be_at_wall #<-- Y this no work? :'(
+    end
+
+    it 'returns the relevant boundary if touching a wall' do
+      warehouse.place_robot(5,0)
+      expect(warehouse.at_wall?).to eq 'W'
     end
   end
 
