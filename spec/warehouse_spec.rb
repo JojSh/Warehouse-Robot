@@ -58,9 +58,11 @@ describe Warehouse do
       expect(warehouse.grid[4][0]).to eq(nil)
     end
 
-    it 'moves the robot one square down when given direction S' do
+    it 'robot cannot move through walls' do
       warehouse.place_robot(9,0)
+      binding.pry
       warehouse.move_robot('W')
+      binding.pry
       expect(warehouse.grid[9][0]).to eq('R')
     end
   end
